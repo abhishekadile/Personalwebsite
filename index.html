@@ -1,931 +1,1246 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abhishek Adile</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhishek Adile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  :root {
-    --ink: #0d0f14;
-    --deep: #131720;
-    --card: #1a1f2e;
-    --muted: #2a3147;
-    --border: rgba(255,255,255,0.07);
-    --text: #e8e4d9;
-    --soft: #9a9486;
-    --gold: #c9a84c;
-    --gold-light: #e8c97a;
-    --ice: #7ec8e3;
-    --sage: #7aab8a;
-    --coral: #e07a5f;
-    --white: #f5f0e8;
-  }
+        :root {
+            --ink: #0d0f14;
+            --deep: #131720;
+            --card: #1a1f2e;
+            --muted: #2a3147;
+            --border: rgba(255, 255, 255, 0.07);
+            --text: #e8e4d9;
+            --soft: #9a9486;
+            --gold: #c9a84c;
+            --gold-light: #e8c97a;
+            --ice: #7ec8e3;
+            --sage: #7aab8a;
+            --coral: #e07a5f;
+            --white: #f5f0e8;
+        }
 
-  html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
-  body {
-    background: var(--ink);
-    color: var(--text);
-    font-family: 'Crimson Pro', Georgia, serif;
-    font-size: 18px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
+        body {
+            background: var(--ink);
+            color: var(--text);
+            font-family: 'Crimson Pro', Georgia, serif;
+            font-size: 18px;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
 
-  /* ─── NAV ─── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.2rem 3rem;
-    background: rgba(13,15,20,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem;
-    letter-spacing: 0.12em;
-    color: var(--gold);
-    text-decoration: none;
-  }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--soft);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--gold-light); }
+        /* ─── NAV ─── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            background: rgba(13, 15, 20, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
 
-  /* ─── HERO ─── */
-  #hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 0 3rem 5rem;
-    position: relative;
-    overflow: hidden;
-  }
+        .nav-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.12em;
+            color: var(--gold);
+            text-decoration: none;
+        }
 
-  .hero-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 60% 40%, rgba(124,200,227,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 40% at 20% 70%, rgba(201,168,76,0.05) 0%, transparent 50%),
-      linear-gradient(170deg, #0d0f14 0%, #131a2b 50%, #0a0d12 100%);
-  }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
 
-  /* Starfield */
-  .stars {
-    position: absolute; inset: 0; pointer-events: none;
-  }
-  .star {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-    animation: twinkle var(--dur, 3s) ease-in-out infinite;
-    animation-delay: var(--delay, 0s);
-    opacity: 0;
-  }
-  @keyframes twinkle {
-    0%, 100% { opacity: 0; }
-    50% { opacity: var(--max-opacity, 0.7); }
-  }
+        .nav-links a {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--soft);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
 
-  /* Horizon line */
-  .horizon {
-    position: absolute;
-    bottom: 22%;
-    left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.25) 30%, rgba(126,200,227,0.3) 70%, transparent 100%);
-  }
-  .horizon::after {
-    content: '';
-    position: absolute;
-    bottom: -40px; left: 0; right: 0; height: 40px;
-    background: linear-gradient(to bottom, rgba(20,30,50,0.3), transparent);
-  }
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
 
-  /* Mountain silhouette */
-  .mountains {
-    position: absolute;
-    bottom: 20%;
-    left: 0; right: 0;
-    height: 18%;
-    background: var(--ink);
-    clip-path: polygon(0% 100%, 0% 70%, 8% 30%, 15% 55%, 22% 15%, 30% 60%, 38% 35%, 45% 70%, 52% 25%, 60% 65%, 68% 40%, 75% 60%, 82% 20%, 90% 55%, 96% 35%, 100% 50%, 100% 100%);
-  }
-  .water {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 20%;
-    background: linear-gradient(to bottom, rgba(10,20,40,0.6) 0%, var(--ink) 100%);
-  }
-  .water-line {
-    position: absolute;
-    bottom: 18%;
-    left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(126,200,227,0.15), rgba(126,200,227,0.25), rgba(126,200,227,0.1), transparent);
-    animation: waterShimmer 4s ease-in-out infinite;
-  }
-  @keyframes waterShimmer {
-    0%,100% { opacity: 0.5; transform: scaleX(1); }
-    50% { opacity: 1; transform: scaleX(1.02); }
-  }
+        /* ─── HERO ─── */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 3rem 5rem;
+            position: relative;
+            overflow: hidden;
+        }
 
-  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 60% 40%, rgba(124, 200, 227, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 20% 70%, rgba(201, 168, 76, 0.05) 0%, transparent 50%),
+                linear-gradient(170deg, #0d0f14 0%, #131a2b 50%, #0a0d12 100%);
+        }
 
-  .hero-eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.3s;
-  }
+        /* Starfield */
+        .stars {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
 
-  .hero-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(5rem, 12vw, 11rem);
-    letter-spacing: 0.03em;
-    line-height: 0.9;
-    color: var(--white);
-    margin-bottom: 0.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.5s;
-  }
-  .hero-name span { color: var(--gold); }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--dur, 3s) ease-in-out infinite;
+            animation-delay: var(--delay, 0s);
+            opacity: 0;
+        }
 
-  .hero-title {
-    font-family: 'DM Serif Display', serif;
-    font-style: italic;
-    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-    color: var(--soft);
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.7s;
-  }
+        @keyframes twinkle {
 
-  .hero-tags {
-    display: flex; flex-wrap: wrap; gap: 0.6rem;
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.9s;
-  }
-  .tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.3rem 0.8rem;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    color: var(--soft);
-    transition: all 0.2s;
-  }
-  .tag:hover { border-color: var(--gold); color: var(--gold-light); }
-  .tag.ice { border-color: rgba(126,200,227,0.3); color: var(--ice); }
-  .tag.sage { border-color: rgba(122,171,138,0.3); color: var(--sage); }
-  .tag.gold { border-color: rgba(201,168,76,0.4); color: var(--gold-light); }
+            0%,
+            100% {
+                opacity: 0;
+            }
 
-  .hero-cta {
-    display: flex; gap: 1.2rem; align-items: center;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 1.1s;
-  }
-  .btn-primary {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 0.85rem 2rem;
-    background: var(--gold);
-    color: var(--ink);
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.2s;
-    border: 1px solid var(--gold);
-  }
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
-  .btn-ghost {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 0.85rem 2rem;
-    border: 1px solid var(--border);
-    color: var(--soft);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-  .btn-ghost:hover { border-color: var(--soft); color: var(--text); }
+            50% {
+                opacity: var(--max-opacity, 0.7);
+            }
+        }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+        /* Horizon line */
+        .horizon {
+            position: absolute;
+            bottom: 22%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(201, 168, 76, 0.25) 30%, rgba(126, 200, 227, 0.3) 70%, transparent 100%);
+        }
 
-  /* ─── SECTION SHARED ─── */
-  section { padding: 6rem 3rem; }
-  .section-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1rem;
-  }
-  .section-heading {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    letter-spacing: 0.04em;
-    color: var(--white);
-    line-height: 1;
-    margin-bottom: 1rem;
-  }
-  .divider {
-    width: 60px; height: 1px;
-    background: var(--gold);
-    margin-bottom: 3rem;
-  }
+        .horizon::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(20, 30, 50, 0.3), transparent);
+        }
 
-  /* ─── ABOUT ─── */
-  #about {
-    background: var(--deep);
-    border-top: 1px solid var(--border);
-  }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    max-width: 1100px;
-    margin: 0 auto;
-    align-items: start;
-  }
-  .about-text p {
-    color: var(--soft);
-    margin-bottom: 1.2rem;
-    font-size: 1.05rem;
-  }
-  .about-text p strong { color: var(--text); font-weight: 400; }
-  .stat-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-  .stat-item {
-    background: var(--card);
-    padding: 1.5rem;
-    transition: background 0.2s;
-  }
-  .stat-item:hover { background: var(--muted); }
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.8rem;
-    line-height: 1;
-    color: var(--gold);
-    margin-bottom: 0.3rem;
-  }
-  .stat-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--soft);
-  }
+        /* Mountain silhouette */
+        .mountains {
+            position: absolute;
+            bottom: 20%;
+            left: 0;
+            right: 0;
+            height: 18%;
+            background: var(--ink);
+            clip-path: polygon(0% 100%, 0% 70%, 8% 30%, 15% 55%, 22% 15%, 30% 60%, 38% 35%, 45% 70%, 52% 25%, 60% 65%, 68% 40%, 75% 60%, 82% 20%, 90% 55%, 96% 35%, 100% 50%, 100% 100%);
+        }
 
-  /* ─── ADVENTURES ─── */
-  #adventures {
-    background: var(--ink);
-    border-top: 1px solid var(--border);
-  }
-  .adventures-intro { max-width: 550px; margin-bottom: 3rem; color: var(--soft); }
+        .water {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20%;
+            background: linear-gradient(to bottom, rgba(10, 20, 40, 0.6) 0%, var(--ink) 100%);
+        }
 
-  .adventure-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
-    max-width: 1100px;
-  }
-  .adv-card {
-    background: var(--card);
-    padding: 2.5rem 2rem;
-    position: relative;
-    overflow: hidden;
-    cursor: default;
-    transition: background 0.3s;
-  }
-  .adv-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--accent-color, var(--gold));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-  }
-  .adv-card:hover { background: var(--muted); }
-  .adv-card:hover::before { transform: scaleX(1); }
+        .water-line {
+            position: absolute;
+            bottom: 18%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(126, 200, 227, 0.15), rgba(126, 200, 227, 0.25), rgba(126, 200, 227, 0.1), transparent);
+            animation: waterShimmer 4s ease-in-out infinite;
+        }
 
-  .adv-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1.2rem;
-    display: block;
-  }
-  .adv-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 0.06em;
-    color: var(--white);
-    margin-bottom: 0.8rem;
-  }
-  .adv-desc { font-size: 0.95rem; color: var(--soft); line-height: 1.6; }
-  .adv-detail {
-    margin-top: 1.2rem;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    color: var(--accent-color, var(--gold));
-    text-transform: uppercase;
-  }
+        @keyframes waterShimmer {
 
-  /* ─── EXPERIENCE ─── */
-  #experience {
-    background: var(--deep);
-    border-top: 1px solid var(--border);
-  }
-  .exp-layout { max-width: 1100px; margin: 0 auto; }
-  .exp-item {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 2rem;
-    padding: 2.5rem 0;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.2s;
-  }
-  .exp-item:first-child { border-top: 1px solid var(--border); }
-  .exp-meta {}
-  .exp-period {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 0.4rem;
-  }
-  .exp-company {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--soft);
-    letter-spacing: 0.05em;
-  }
-  .exp-role {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.25rem;
-    color: var(--white);
-    margin-bottom: 0.8rem;
-  }
-  .exp-desc { font-size: 0.95rem; color: var(--soft); margin-bottom: 1rem; }
-  .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .exp-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.08em;
-    padding: 0.2rem 0.6rem;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    color: var(--soft);
-    text-transform: uppercase;
-  }
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: scaleX(1);
+            }
 
-  /* ─── SKILLS ─── */
-  #skills {
-    background: var(--ink);
-    border-top: 1px solid var(--border);
-  }
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    max-width: 1100px;
-  }
-  .skill-group {
-    background: var(--card);
-    padding: 2rem 1.5rem;
-  }
-  .skill-group-title {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-    padding-bottom: 0.8rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .skill-list { list-style: none; }
-  .skill-list li {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--soft);
-    padding: 0.35rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.03);
-    transition: color 0.2s;
-  }
-  .skill-list li:hover { color: var(--text); }
-  .skill-list li::before { content: '→ '; color: var(--gold); opacity: 0.5; }
+            50% {
+                opacity: 1;
+                transform: scaleX(1.02);
+            }
+        }
 
-  /* ─── PROJECTS ─── */
-  #projects {
-    background: var(--deep);
-    border-top: 1px solid var(--border);
-  }
-  .projects-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    max-width: 1100px;
-  }
-  .proj-card {
-    background: var(--card);
-    padding: 2.5rem;
-    position: relative;
-    transition: background 0.2s;
-  }
-  .proj-card:hover { background: var(--muted); }
-  .proj-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 4rem;
-    line-height: 1;
-    color: rgba(255,255,255,0.04);
-    position: absolute;
-    top: 1.5rem; right: 1.5rem;
-  }
-  .proj-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.8rem;
-  }
-  .proj-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.4rem;
-    color: var(--white);
-    margin-bottom: 1rem;
-    line-height: 1.3;
-  }
-  .proj-desc { font-size: 0.9rem; color: var(--soft); margin-bottom: 1.5rem; }
-  .proj-metrics {
-    display: flex; gap: 1.5rem; flex-wrap: wrap;
-  }
-  .proj-metric {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--ice);
-    letter-spacing: 0.05em;
-  }
-  .proj-metric span { font-weight: 500; color: var(--ice); opacity: 0.8; }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
 
-  /* ─── CONTACT ─── */
-  #contact {
-    background: var(--ink);
-    border-top: 1px solid var(--border);
-    text-align: center;
-    padding: 8rem 3rem;
-  }
-  .contact-pre {
-    font-family: 'DM Serif Display', serif;
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--soft);
-    margin-bottom: 1rem;
-  }
-  .contact-heading {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3rem, 7vw, 6rem);
-    letter-spacing: 0.04em;
-    color: var(--white);
-    line-height: 1;
-    margin-bottom: 2.5rem;
-  }
-  .contact-heading span { color: var(--gold); }
-  .contact-links {
-    display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
-    margin-bottom: 3rem;
-  }
-  .contact-link {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--soft);
-    text-decoration: none;
-    padding: 0.7rem 1.5rem;
-    border: 1px solid var(--border);
-    transition: all 0.2s;
-  }
-  .contact-link:hover { border-color: var(--gold); color: var(--gold-light); }
-  .contact-email {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.4rem;
-    color: var(--gold);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .contact-email:hover { color: var(--gold-light); }
+        .hero-eyebrow {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.3s;
+        }
 
-  /* ─── FOOTER ─── */
-  footer {
-    background: var(--deep);
-    border-top: 1px solid var(--border);
-    padding: 1.5rem 3rem;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  footer span {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
+        .hero-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(5rem, 12vw, 11rem);
+            letter-spacing: 0.03em;
+            line-height: 0.9;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.5s;
+        }
 
-  /* ─── RESPONSIVE ─── */
-  @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { gap: 1.5rem; }
-    section { padding: 4rem 1.5rem; }
-    #hero { padding: 0 1.5rem 4rem; }
-    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .adventure-cards { grid-template-columns: 1fr; }
-    .skills-grid { grid-template-columns: 1fr 1fr; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
-    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
-  }
-  @media (max-width: 600px) {
-    .nav-links { display: none; }
-    .hero-name { font-size: 4.5rem; }
-    .skills-grid { grid-template-columns: 1fr; }
-    .contact-links { flex-direction: column; align-items: center; }
-  }
-</style>
+        .hero-name span {
+            color: var(--gold);
+        }
+
+        .hero-title {
+            font-family: 'DM Serif Display', serif;
+            font-style: italic;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            color: var(--soft);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.7s;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.9s;
+        }
+
+        .tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            color: var(--soft);
+            transition: all 0.2s;
+        }
+
+        .tag:hover {
+            border-color: var(--gold);
+            color: var(--gold-light);
+        }
+
+        .tag.ice {
+            border-color: rgba(126, 200, 227, 0.3);
+            color: var(--ice);
+        }
+
+        .tag.sage {
+            border-color: rgba(122, 171, 138, 0.3);
+            color: var(--sage);
+        }
+
+        .tag.gold {
+            border-color: rgba(201, 168, 76, 0.4);
+            color: var(--gold-light);
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 1.1s;
+        }
+
+        .btn-primary {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.85rem 2rem;
+            background: var(--gold);
+            color: var(--ink);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: 1px solid var(--gold);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.85rem 2rem;
+            border: 1px solid var(--border);
+            color: var(--soft);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--soft);
+            color: var(--text);
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ─── SECTION SHARED ─── */
+        section {
+            padding: 6rem 3rem;
+        }
+
+        .section-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-heading {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            letter-spacing: 0.04em;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            margin-bottom: 3rem;
+        }
+
+        /* ─── ABOUT ─── */
+        #about {
+            background: var(--deep);
+            border-top: 1px solid var(--border);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .about-text p {
+            color: var(--soft);
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+
+        .about-text p strong {
+            color: var(--text);
+            font-weight: 400;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .stat-item {
+            background: var(--card);
+            padding: 1.5rem;
+            transition: background 0.2s;
+        }
+
+        .stat-item:hover {
+            background: var(--muted);
+        }
+
+        .stat-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.8rem;
+            line-height: 1;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--soft);
+        }
+
+        /* ─── ADVENTURES ─── */
+        #adventures {
+            background: var(--ink);
+            border-top: 1px solid var(--border);
+        }
+
+        .adventures-intro {
+            max-width: 550px;
+            margin-bottom: 3rem;
+            color: var(--soft);
+        }
+
+        .adventure-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            max-width: 1100px;
+        }
+
+        .adv-card {
+            background: var(--card);
+            padding: 2.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            cursor: default;
+            transition: background 0.3s;
+        }
+
+        .adv-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-color, var(--gold));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .adv-card:hover {
+            background: var(--muted);
+        }
+
+        .adv-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .adv-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.2rem;
+            display: block;
+        }
+
+        .adv-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 0.06em;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+        }
+
+        .adv-desc {
+            font-size: 0.95rem;
+            color: var(--soft);
+            line-height: 1.6;
+        }
+
+        .adv-detail {
+            margin-top: 1.2rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            color: var(--accent-color, var(--gold));
+            text-transform: uppercase;
+        }
+
+        /* ─── EXPERIENCE ─── */
+        #experience {
+            background: var(--deep);
+            border-top: 1px solid var(--border);
+        }
+
+        .exp-layout {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .exp-item {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+
+        .exp-item:first-child {
+            border-top: 1px solid var(--border);
+        }
+
+        .exp-meta {}
+
+        .exp-period {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        .exp-company {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--soft);
+            letter-spacing: 0.05em;
+        }
+
+        .exp-role {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+        }
+
+        .exp-desc {
+            font-size: 0.95rem;
+            color: var(--soft);
+            margin-bottom: 1rem;
+        }
+
+        .exp-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .exp-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.08em;
+            padding: 0.2rem 0.6rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: var(--soft);
+            text-transform: uppercase;
+        }
+
+        /* ─── SKILLS ─── */
+        #skills {
+            background: var(--ink);
+            border-top: 1px solid var(--border);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            max-width: 1100px;
+        }
+
+        .skill-group {
+            background: var(--card);
+            padding: 2rem 1.5rem;
+        }
+
+        .skill-group-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--soft);
+            padding: 0.35rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            transition: color 0.2s;
+        }
+
+        .skill-list li:hover {
+            color: var(--text);
+        }
+
+        .skill-list li::before {
+            content: '→ ';
+            color: var(--gold);
+            opacity: 0.5;
+        }
+
+        /* ─── PROJECTS ─── */
+        #projects {
+            background: var(--deep);
+            border-top: 1px solid var(--border);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            max-width: 1100px;
+        }
+
+        .proj-card {
+            background: var(--card);
+            padding: 2.5rem;
+            position: relative;
+            transition: background 0.2s;
+        }
+
+        .proj-card:hover {
+            background: var(--muted);
+        }
+
+        .proj-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.04);
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+        }
+
+        .proj-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+        }
+
+        .proj-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .proj-desc {
+            font-size: 0.9rem;
+            color: var(--soft);
+            margin-bottom: 1.5rem;
+        }
+
+        .proj-metrics {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .proj-metric {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--ice);
+            letter-spacing: 0.05em;
+        }
+
+        .proj-metric span {
+            font-weight: 500;
+            color: var(--ice);
+            opacity: 0.8;
+        }
+
+        /* ─── CONTACT ─── */
+        #contact {
+            background: var(--ink);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 8rem 3rem;
+        }
+
+        .contact-pre {
+            font-family: 'DM Serif Display', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--soft);
+            margin-bottom: 1rem;
+        }
+
+        .contact-heading {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            letter-spacing: 0.04em;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-heading span {
+            color: var(--gold);
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .contact-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--soft);
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+
+        .contact-link:hover {
+            border-color: var(--gold);
+            color: var(--gold-light);
+        }
+
+        .contact-email {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-email:hover {
+            color: var(--gold-light);
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: var(--deep);
+            border-top: 1px solid var(--border);
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer span {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 900px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            #hero {
+                padding: 0 1.5rem 4rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .adventure-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exp-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-name {
+                font-size: 4.5rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="#hero" class="nav-logo">AA</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#adventures">Adventures</a></li>
-    <li><a href="#experience">Work</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+    <!-- NAV -->
+    <nav>
+        <a href="#hero" class="nav-logo">AA</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#adventures">Adventures</a></li>
+            <li><a href="#experience">Work</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="stars" id="stars"></div>
-  <div class="horizon"></div>
-  <div class="mountains"></div>
-  <div class="water"></div>
-  <div class="water-line"></div>
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-bg"></div>
+        <div class="stars" id="stars"></div>
+        <div class="horizon"></div>
+        <div class="mountains"></div>
+        <div class="water"></div>
+        <div class="water-line"></div>
 
-  <div class="hero-content">
-    <p class="hero-eyebrow">ML Engineer · Entrepreneur · Explorer</p>
-    <h1 class="hero-name">Abhi<span>shek</span><br>Adile</h1>
-    <p class="hero-title">Building AI for healthcare — and chasing the horizon elsewhere</p>
-    <div class="hero-tags">
-      <span class="tag gold">Healthcare AI</span>
-      <span class="tag gold">NovaBiota Co-Founder</span>
-      <span class="tag ice">⛷ Skier</span>
-      <span class="tag ice">⛵ Sailor</span>
-      <span class="tag sage">✈ Aspiring Pilot</span>
-      <span class="tag sage">🏊 15× Swim Champion</span>
-      <span class="tag">Twin Cities, MN</span>
-    </div>
-    <div class="hero-cta">
-      <a href="#projects" class="btn-primary">View My Work</a>
-      <a href="#contact" class="btn-ghost">Get in Touch</a>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-grid">
-    <div class="about-text">
-      <p class="section-label">About</p>
-      <h2 class="section-heading">Engineer.<br>Founder.<br>Adventurer.</h2>
-      <div class="divider"></div>
-      <p>I'm an ML engineer and co-founder of <strong>NovaBiota</strong>, a healthcare AI startup helping physicians navigate diagnostic test selection across 90,000+ available tests. I believe the best technology disappears into the background, making complex decisions feel effortless.</p>
-      <p>Before NovaBiota, I spent two years at <strong>Target Corporation</strong> building ML pipelines for sustainability analytics, and founded <strong>Adile Diagnostics</strong> — an AI system for skin cancer detection achieving 94.3% accuracy on the HAM10000 dataset.</p>
-      <p>Outside of code, I'm most alive when navigating open water under sail, carving down a mountain, or studying charts in a flight sim. I'm pursuing my MS in Computer Science at <strong>St. Cloud State University</strong>.</p>
-    </div>
-    <div>
-      <div class="stat-grid">
-        <div class="stat-item">
-          <div class="stat-num">15×</div>
-          <div class="stat-label">State & National Swim Titles</div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">ML Engineer · Entrepreneur · Explorer</p>
+            <h1 class="hero-name">Abhi<span>shek</span><br>Adile</h1>
+            <p class="hero-title">Building AI for healthcare — and chasing the horizon elsewhere</p>
+            <div class="hero-tags">
+                <span class="tag gold">Healthcare AI</span>
+                <span class="tag gold">NovaBiota Co-Founder</span>
+                <span class="tag ice">⛷ Skier</span>
+                <span class="tag ice">⛵ Sailor</span>
+                <span class="tag sage">✈ Aspiring Pilot</span>
+                <span class="tag sage">🏊 15× Swim Champion</span>
+                <span class="tag">Twin Cities, MN</span>
+            </div>
+            <div class="hero-cta">
+                <a href="#projects" class="btn-primary">View My Work</a>
+                <a href="#contact" class="btn-ghost">Get in Touch</a>
+            </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">94%</div>
-          <div class="stat-label">Skin Cancer Detection Accuracy</div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="about-grid">
+            <div class="about-text">
+                <p class="section-label">About</p>
+                <h2 class="section-heading">Engineer.<br>Founder.<br>Adventurer.</h2>
+                <div class="divider"></div>
+                <p>I'm an ML engineer and co-founder of <strong>NovaBiota</strong>, a healthcare AI startup helping
+                    physicians navigate diagnostic test selection across 90,000+ available tests. I believe the best
+                    technology disappears into the background, making complex decisions feel effortless.</p>
+                <p>Before NovaBiota, I spent two years at <strong>Target Corporation</strong> building ML pipelines for
+                    sustainability analytics, and founded <strong>Adile Diagnostics</strong> — an AI system for skin
+                    cancer detection achieving 94.3% accuracy on the HAM10000 dataset.</p>
+                <p>Outside of code, I'm most alive when navigating open water under sail, carving down a mountain, or
+                    studying charts in a flight sim. I'm pursuing my MS in Computer Science at <strong>St. Cloud State
+                        University</strong>.</p>
+            </div>
+            <div>
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <div class="stat-num">15×</div>
+                        <div class="stat-label">State & National Swim Titles</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">94%</div>
+                        <div class="stat-label">Skin Cancer Detection Accuracy</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">90K+</div>
+                        <div class="stat-label">Diagnostic Tests in NovaBiota DB</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">35+</div>
+                        <div class="stat-label">Attendees, GPT Workshop</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">40%</div>
+                        <div class="stat-label">Cloud Cost Reduction (Azure)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">70%</div>
+                        <div class="stat-label">CI/CD Deployment Time Cut</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">90K+</div>
-          <div class="stat-label">Diagnostic Tests in NovaBiota DB</div>
+    </section>
+
+    <!-- ADVENTURES -->
+    <section id="adventures">
+        <p class="section-label">Beyond the Screen</p>
+        <h2 class="section-heading">Life at<br>Full Throttle</h2>
+        <div class="divider"></div>
+        <p class="adventures-intro">I believe the same instincts that drive great engineering — reading complex systems,
+            staying calm under pressure, knowing when to push and when to hold — are sharpened in the wild.</p>
+
+        <div class="adventure-cards">
+            <div class="adv-card" style="--accent-color: #7ec8e3;">
+                <span class="adv-icon">⛷</span>
+                <div class="adv-title">Skiing</div>
+                <p class="adv-desc">There's no better debugger than a steep couloir. The mountain doesn't care about
+                    your excuses — it demands presence, commitment, and reading terrain in real time.</p>
+                <div class="adv-detail">Alpine · Backcountry · Midwest to Rockies</div>
+            </div>
+            <div class="adv-card" style="--accent-color: #c9a84c;">
+                <span class="adv-icon">⛵</span>
+                <div class="adv-title">Sailing</div>
+                <p class="adv-desc">Sailing taught me what no classroom could: how to work with dynamic, unpredictable
+                    systems. Wind, current, and weather form a distributed system you can never fully control — only
+                    navigate.</p>
+                <div class="adv-detail">Keelboat · Lake Sailing · MN Waters</div>
+            </div>
+            <div class="adv-card" style="--accent-color: #7aab8a;">
+                <span class="adv-icon">✈</span>
+                <div class="adv-title">Flying</div>
+                <p class="adv-desc">Fascinated by aviation and actively working toward my pilot's license. There's a
+                    beautiful intersection of engineering, meteorology, and human judgment at altitude that I can't
+                    resist.</p>
+                <div class="adv-detail">Student Pilot · General Aviation · IFR Curious</div>
+            </div>
+            <div class="adv-card" style="--accent-color: #7ec8e3;">
+                <span class="adv-icon">🏊</span>
+                <div class="adv-title">Swimming</div>
+                <p class="adv-desc">15 state and national championships. 250+ training days per year, twice daily.
+                    Competitive swimming rewired how I think about discipline, recovery, and the compounding power of
+                    showing up every single day.</p>
+                <div class="adv-detail">15× Champion · SCSU · Univ. of St. Thomas Varsity</div>
+            </div>
+            <div class="adv-card" style="--accent-color: #e07a5f;">
+                <span class="adv-icon">🤿</span>
+                <div class="adv-title">Water Polo</div>
+                <p class="adv-desc">Combines the endurance of swimming with tactical team play. Reading opposing
+                    defenses in real time is not entirely unlike monitoring a distributed system under load.</p>
+                <div class="adv-detail">Team Sport · Tactical · Open Water</div>
+            </div>
+            <div class="adv-card" style="--accent-color: #c9a84c;">
+                <span class="adv-icon">🏋</span>
+                <div class="adv-title">Weightlifting</div>
+                <p class="adv-desc">The weight room is where I process hard problems. Compound lifts demand focus,
+                    progressive overload demands patience — both are transferable skills in long-haul ML research.</p>
+                <div class="adv-detail">Strength · Powerlifting Principles · Daily Practice</div>
+            </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">35+</div>
-          <div class="stat-label">Attendees, GPT Workshop</div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+        <p class="section-label">Experience</p>
+        <h2 class="section-heading">Where I've<br>Built Things</h2>
+        <div class="divider"></div>
+
+        <div class="exp-layout">
+            <div class="exp-item">
+                <div class="exp-meta">
+                    <div class="exp-period">2025 – Present</div>
+                    <div class="exp-company">NovaBiota, Inc.</div>
+                </div>
+                <div>
+                    <div class="exp-role">Co-Founder & ML Engineer</div>
+                    <p class="exp-desc">Leading technical development of a healthcare AI platform that helps physicians
+                        select and interpret from 90,000+ diagnostic tests. Architected RAG systems on Azure, built
+                        HIPAA-compliant microservices, and trained custom LLMs from scratch in PyTorch.</p>
+                    <div class="exp-tags">
+                        <span class="exp-tag">Azure</span><span class="exp-tag">RAG</span><span
+                            class="exp-tag">PyTorch</span><span class="exp-tag">HIPAA</span><span
+                            class="exp-tag">AKS</span><span class="exp-tag">LLM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-meta">
+                    <div class="exp-period">2020 – Present</div>
+                    <div class="exp-company">Adile Diagnostics</div>
+                </div>
+                <div>
+                    <div class="exp-role">Founder & ML Engineer</div>
+                    <p class="exp-desc">Built an AI skin cancer detection system achieving 94.3% accuracy on HAM10000.
+                        Engineered the full AWS stack from EC2 to CDN, implemented novel attention-guided multimodal
+                        CNN-VLM architectures, and am authoring a research manuscript for arXiv.</p>
+                    <div class="exp-tags">
+                        <span class="exp-tag">AWS</span><span class="exp-tag">CNN</span><span
+                            class="exp-tag">ResNet-50</span><span class="exp-tag">EfficientNet</span><span
+                            class="exp-tag">Grad-CAM++</span><span class="exp-tag">Terraform</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-meta">
+                    <div class="exp-period">2023 – 2025</div>
+                    <div class="exp-company">Target Corporation</div>
+                </div>
+                <div>
+                    <div class="exp-role">Software & ML Engineer</div>
+                    <p class="exp-desc">Built real-time data pipelines with Kafka, Spark, and Apache NiFi for
+                        environmental impact analytics. Fine-tuned GPT-2 for customer service and developed predictive
+                        models for Owned Brand strategy.</p>
+                    <div class="exp-tags">
+                        <span class="exp-tag">Kafka</span><span class="exp-tag">Spark</span><span
+                            class="exp-tag">Databricks</span><span class="exp-tag">Airflow</span><span
+                            class="exp-tag">GPT-2</span><span class="exp-tag">TensorFlow</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-meta">
+                    <div class="exp-period">2022 – 2023</div>
+                    <div class="exp-company">Vits Consulting Corp</div>
+                </div>
+                <div>
+                    <div class="exp-role">Software & ML Engineer</div>
+                    <p class="exp-desc">Developed and optimized ML pipelines end-to-end, integrated Docker/Kubernetes
+                        for containerized deployments, and built NLP applications using TensorFlow and NLTK.</p>
+                    <div class="exp-tags">
+                        <span class="exp-tag">TensorFlow</span><span class="exp-tag">Docker</span><span
+                            class="exp-tag">Kubernetes</span><span class="exp-tag">Java</span><span
+                            class="exp-tag">NLTK</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">40%</div>
-          <div class="stat-label">Cloud Cost Reduction (Azure)</div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+        <p class="section-label">Technical Skills</p>
+        <h2 class="section-heading">The Toolkit</h2>
+        <div class="divider"></div>
+
+        <div class="skills-grid">
+            <div class="skill-group">
+                <div class="skill-group-title">Languages</div>
+                <ul class="skill-list">
+                    <li>Python</li>
+                    <li>TypeScript / JavaScript</li>
+                    <li>Swift / SwiftUI</li>
+                    <li>C++ / C</li>
+                    <li>Java</li>
+                    <li>SQL</li>
+                    <li>MATLAB</li>
+                </ul>
+            </div>
+            <div class="skill-group">
+                <div class="skill-group-title">ML / AI</div>
+                <ul class="skill-list">
+                    <li>PyTorch · TensorFlow</li>
+                    <li>Transformers / LLMs</li>
+                    <li>RAG Systems</li>
+                    <li>Computer Vision</li>
+                    <li>BERT · BioBERT · GPT</li>
+                    <li>Scikit-learn</li>
+                    <li>CUDA</li>
+                </ul>
+            </div>
+            <div class="skill-group">
+                <div class="skill-group-title">Cloud & Infra</div>
+                <ul class="skill-list">
+                    <li>Azure (OpenAI, AKS, CosmosDB)</li>
+                    <li>AWS (EC2, S3, RDS, CDN)</li>
+                    <li>Google Cloud Platform</li>
+                    <li>Terraform · Docker</li>
+                    <li>Kubernetes</li>
+                    <li>Apache Kafka / Spark</li>
+                    <li>Databricks · Airflow</li>
+                </ul>
+            </div>
+            <div class="skill-group">
+                <div class="skill-group-title">Domains</div>
+                <ul class="skill-list">
+                    <li>Healthcare AI / HIPAA</li>
+                    <li>Diagnostic Imaging</li>
+                    <li>NLP & Text Generation</li>
+                    <li>Real-time Data Pipelines</li>
+                    <li>iOS Development</li>
+                    <li>VR / 3D (Unity, Blender)</li>
+                    <li>Research & Publication</li>
+                </ul>
+            </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">70%</div>
-          <div class="stat-label">CI/CD Deployment Time Cut</div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <p class="section-label">Notable Projects</p>
+        <h2 class="section-heading">Work I'm<br>Proud Of</h2>
+        <div class="divider"></div>
+
+        <div class="projects-grid">
+            <div class="proj-card">
+                <div class="proj-num">01</div>
+                <div class="proj-label">Healthcare AI · Azure · RAG</div>
+                <div class="proj-title">NovaBiota Diagnostic Platform</div>
+                <p class="proj-desc">AI-powered clinical decision support navigating 90,000+ laboratory tests. Built
+                    end-to-end on Azure with RAG architecture, HIPAA-compliant microservices, and an AKS-hosted
+                    inference pipeline.</p>
+                <div class="proj-metrics">
+                    <div class="proj-metric"><span>90K+</span> tests indexed</div>
+                    <div class="proj-metric"><span>40%</span> cost reduction</div>
+                    <div class="proj-metric"><span>HIPAA</span> compliant</div>
+                </div>
+            </div>
+
+            <div class="proj-card">
+                <div class="proj-num">02</div>
+                <div class="proj-label">Computer Vision · Research · AWS</div>
+                <div class="proj-title">Attention-Guided Skin Lesion CNN-VLM</div>
+                <p class="proj-desc">Novel multimodal deep learning framework combining ensemble CNNs (ResNet-50,
+                    EfficientNet-B7, DenseNet-121) with Vision-Language Models. Custom Grad-CAM++ attention fusion for
+                    explainability. arXiv manuscript in progress.</p>
+                <div class="proj-metrics">
+                    <div class="proj-metric"><span>94.3%</span> HAM10000 accuracy</div>
+                    <div class="proj-metric"><span>+8.2%</span> over CLIP baseline</div>
+                </div>
+            </div>
+
+            <div class="proj-card">
+                <div class="proj-num">03</div>
+                <div class="proj-label">NLP · Education · PyTorch</div>
+                <div class="proj-title">GPT-Style Transformer — From Scratch</div>
+                <p class="proj-desc">Built and trained a complete GPT-style transformer in PyTorch for the AppliedAI
+                    Twin Cities community. Full pipeline: tokenization, multi-head attention, positional encoding,
+                    pretraining, fine-tuning. Taught to 35+ engineers in an 8-hour live workshop.</p>
+                <div class="proj-metrics">
+                    <div class="proj-metric"><span>35+</span> workshop attendees</div>
+                    <div class="proj-metric"><span>8hr</span> live session</div>
+                </div>
+            </div>
+
+            <div class="proj-card">
+                <div class="proj-num">04</div>
+                <div class="proj-label">Hematology · Object Detection</div>
+                <div class="proj-title">Blood Cell Detection & Quantification</div>
+                <p class="proj-desc">Multi-task deep learning system for hematological analysis. Faster R-CNN and
+                    RetinaNet with Feature Pyramid Networks for simultaneous detection, classification, and
+                    quantification of WBCs, RBCs, and platelets across microscopy images.</p>
+                <div class="proj-metrics">
+                    <div class="proj-metric"><span>0.89 mAP</span> across 5 cell types</div>
+                    <div class="proj-metric"><span>73%</span> labeling effort reduced</div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- ADVENTURES -->
-<section id="adventures">
-  <p class="section-label">Beyond the Screen</p>
-  <h2 class="section-heading">Life at<br>Full Throttle</h2>
-  <div class="divider"></div>
-  <p class="adventures-intro">I believe the same instincts that drive great engineering — reading complex systems, staying calm under pressure, knowing when to push and when to hold — are sharpened in the wild.</p>
-
-  <div class="adventure-cards">
-    <div class="adv-card" style="--accent-color: #7ec8e3;">
-      <span class="adv-icon">⛷</span>
-      <div class="adv-title">Skiing</div>
-      <p class="adv-desc">There's no better debugger than a steep couloir. The mountain doesn't care about your excuses — it demands presence, commitment, and reading terrain in real time.</p>
-      <div class="adv-detail">Alpine · Backcountry · Midwest to Rockies</div>
-    </div>
-    <div class="adv-card" style="--accent-color: #c9a84c;">
-      <span class="adv-icon">⛵</span>
-      <div class="adv-title">Sailing</div>
-      <p class="adv-desc">Sailing taught me what no classroom could: how to work with dynamic, unpredictable systems. Wind, current, and weather form a distributed system you can never fully control — only navigate.</p>
-      <div class="adv-detail">Keelboat · Lake Sailing · MN Waters</div>
-    </div>
-    <div class="adv-card" style="--accent-color: #7aab8a;">
-      <span class="adv-icon">✈</span>
-      <div class="adv-title">Flying</div>
-      <p class="adv-desc">Fascinated by aviation and actively working toward my pilot's license. There's a beautiful intersection of engineering, meteorology, and human judgment at altitude that I can't resist.</p>
-      <div class="adv-detail">Student Pilot · General Aviation · IFR Curious</div>
-    </div>
-    <div class="adv-card" style="--accent-color: #7ec8e3;">
-      <span class="adv-icon">🏊</span>
-      <div class="adv-title">Swimming</div>
-      <p class="adv-desc">15 state and national championships. 250+ training days per year, twice daily. Competitive swimming rewired how I think about discipline, recovery, and the compounding power of showing up every single day.</p>
-      <div class="adv-detail">15× Champion · SCSU · Univ. of St. Thomas Varsity</div>
-    </div>
-    <div class="adv-card" style="--accent-color: #e07a5f;">
-      <span class="adv-icon">🤿</span>
-      <div class="adv-title">Water Polo</div>
-      <p class="adv-desc">Combines the endurance of swimming with tactical team play. Reading opposing defenses in real time is not entirely unlike monitoring a distributed system under load.</p>
-      <div class="adv-detail">Team Sport · Tactical · Open Water</div>
-    </div>
-    <div class="adv-card" style="--accent-color: #c9a84c;">
-      <span class="adv-icon">🏋</span>
-      <div class="adv-title">Weightlifting</div>
-      <p class="adv-desc">The weight room is where I process hard problems. Compound lifts demand focus, progressive overload demands patience — both are transferable skills in long-haul ML research.</p>
-      <div class="adv-detail">Strength · Powerlifting Principles · Daily Practice</div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <p class="section-label">Experience</p>
-  <h2 class="section-heading">Where I've<br>Built Things</h2>
-  <div class="divider"></div>
-
-  <div class="exp-layout">
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-period">2025 – Present</div>
-        <div class="exp-company">NovaBiota, Inc.</div>
-      </div>
-      <div>
-        <div class="exp-role">Co-Founder & ML Engineer</div>
-        <p class="exp-desc">Leading technical development of a healthcare AI platform that helps physicians select and interpret from 90,000+ diagnostic tests. Architected RAG systems on Azure, built HIPAA-compliant microservices, and trained custom LLMs from scratch in PyTorch.</p>
-        <div class="exp-tags">
-          <span class="exp-tag">Azure</span><span class="exp-tag">RAG</span><span class="exp-tag">PyTorch</span><span class="exp-tag">HIPAA</span><span class="exp-tag">AKS</span><span class="exp-tag">LLM</span>
+    <!-- CONTACT -->
+    <section id="contact">
+        <p class="contact-pre">Let's build something worth building.</p>
+        <h2 class="contact-heading">Get In<br><span>Touch</span></h2>
+        <div class="contact-links">
+            <a href="https://www.linkedin.com/in/abhishek-a-95328613b/" class="contact-link"
+                target="_blank">LinkedIn</a>
+            <a href="https://github.com/abhishekadile" class="contact-link" target="_blank">GitHub</a>
+            <a href="#" class="contact-link">Resume</a>
         </div>
-      </div>
-    </div>
+    </section>
 
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-period">2020 – Present</div>
-        <div class="exp-company">Adile Diagnostics</div>
-      </div>
-      <div>
-        <div class="exp-role">Founder & ML Engineer</div>
-        <p class="exp-desc">Built an AI skin cancer detection system achieving 94.3% accuracy on HAM10000. Engineered the full AWS stack from EC2 to CDN, implemented novel attention-guided multimodal CNN-VLM architectures, and am authoring a research manuscript for arXiv.</p>
-        <div class="exp-tags">
-          <span class="exp-tag">AWS</span><span class="exp-tag">CNN</span><span class="exp-tag">ResNet-50</span><span class="exp-tag">EfficientNet</span><span class="exp-tag">Grad-CAM++</span><span class="exp-tag">Terraform</span>
-        </div>
-      </div>
-    </div>
+    <!-- FOOTER -->
+    <footer>
+        <span>© 2025 Abhishek Adile</span>
+        <span>ML Engineer · Founder · Twin Cities, MN</span>
+        <span>Built with intention</span>
+    </footer>
 
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-period">2023 – 2025</div>
-        <div class="exp-company">Target Corporation</div>
-      </div>
-      <div>
-        <div class="exp-role">Software & ML Engineer</div>
-        <p class="exp-desc">Built real-time data pipelines with Kafka, Spark, and Apache NiFi for environmental impact analytics. Fine-tuned GPT-2 for customer service and developed predictive models for Owned Brand strategy.</p>
-        <div class="exp-tags">
-          <span class="exp-tag">Kafka</span><span class="exp-tag">Spark</span><span class="exp-tag">Databricks</span><span class="exp-tag">Airflow</span><span class="exp-tag">GPT-2</span><span class="exp-tag">TensorFlow</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-period">2022 – 2023</div>
-        <div class="exp-company">Vits Consulting Corp</div>
-      </div>
-      <div>
-        <div class="exp-role">Software & ML Engineer</div>
-        <p class="exp-desc">Developed and optimized ML pipelines end-to-end, integrated Docker/Kubernetes for containerized deployments, and built NLP applications using TensorFlow and NLTK.</p>
-        <div class="exp-tags">
-          <span class="exp-tag">TensorFlow</span><span class="exp-tag">Docker</span><span class="exp-tag">Kubernetes</span><span class="exp-tag">Java</span><span class="exp-tag">NLTK</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <p class="section-label">Technical Skills</p>
-  <h2 class="section-heading">The Toolkit</h2>
-  <div class="divider"></div>
-
-  <div class="skills-grid">
-    <div class="skill-group">
-      <div class="skill-group-title">Languages</div>
-      <ul class="skill-list">
-        <li>Python</li>
-        <li>TypeScript / JavaScript</li>
-        <li>Swift / SwiftUI</li>
-        <li>C++ / C</li>
-        <li>Java</li>
-        <li>SQL</li>
-        <li>MATLAB</li>
-      </ul>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title">ML / AI</div>
-      <ul class="skill-list">
-        <li>PyTorch · TensorFlow</li>
-        <li>Transformers / LLMs</li>
-        <li>RAG Systems</li>
-        <li>Computer Vision</li>
-        <li>BERT · BioBERT · GPT</li>
-        <li>Scikit-learn</li>
-        <li>CUDA</li>
-      </ul>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title">Cloud & Infra</div>
-      <ul class="skill-list">
-        <li>Azure (OpenAI, AKS, CosmosDB)</li>
-        <li>AWS (EC2, S3, RDS, CDN)</li>
-        <li>Google Cloud Platform</li>
-        <li>Terraform · Docker</li>
-        <li>Kubernetes</li>
-        <li>Apache Kafka / Spark</li>
-        <li>Databricks · Airflow</li>
-      </ul>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title">Domains</div>
-      <ul class="skill-list">
-        <li>Healthcare AI / HIPAA</li>
-        <li>Diagnostic Imaging</li>
-        <li>NLP & Text Generation</li>
-        <li>Real-time Data Pipelines</li>
-        <li>iOS Development</li>
-        <li>VR / 3D (Unity, Blender)</li>
-        <li>Research & Publication</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <p class="section-label">Notable Projects</p>
-  <h2 class="section-heading">Work I'm<br>Proud Of</h2>
-  <div class="divider"></div>
-
-  <div class="projects-grid">
-    <div class="proj-card">
-      <div class="proj-num">01</div>
-      <div class="proj-label">Healthcare AI · Azure · RAG</div>
-      <div class="proj-title">NovaBiota Diagnostic Platform</div>
-      <p class="proj-desc">AI-powered clinical decision support navigating 90,000+ laboratory tests. Built end-to-end on Azure with RAG architecture, HIPAA-compliant microservices, and an AKS-hosted inference pipeline.</p>
-      <div class="proj-metrics">
-        <div class="proj-metric"><span>90K+</span> tests indexed</div>
-        <div class="proj-metric"><span>40%</span> cost reduction</div>
-        <div class="proj-metric"><span>HIPAA</span> compliant</div>
-      </div>
-    </div>
-
-    <div class="proj-card">
-      <div class="proj-num">02</div>
-      <div class="proj-label">Computer Vision · Research · AWS</div>
-      <div class="proj-title">Attention-Guided Skin Lesion CNN-VLM</div>
-      <p class="proj-desc">Novel multimodal deep learning framework combining ensemble CNNs (ResNet-50, EfficientNet-B7, DenseNet-121) with Vision-Language Models. Custom Grad-CAM++ attention fusion for explainability. arXiv manuscript in progress.</p>
-      <div class="proj-metrics">
-        <div class="proj-metric"><span>94.3%</span> HAM10000 accuracy</div>
-        <div class="proj-metric"><span>+8.2%</span> over CLIP baseline</div>
-      </div>
-    </div>
-
-    <div class="proj-card">
-      <div class="proj-num">03</div>
-      <div class="proj-label">NLP · Education · PyTorch</div>
-      <div class="proj-title">GPT-Style Transformer — From Scratch</div>
-      <p class="proj-desc">Built and trained a complete GPT-style transformer in PyTorch for the AppliedAI Twin Cities community. Full pipeline: tokenization, multi-head attention, positional encoding, pretraining, fine-tuning. Taught to 35+ engineers in an 8-hour live workshop.</p>
-      <div class="proj-metrics">
-        <div class="proj-metric"><span>35+</span> workshop attendees</div>
-        <div class="proj-metric"><span>8hr</span> live session</div>
-      </div>
-    </div>
-
-    <div class="proj-card">
-      <div class="proj-num">04</div>
-      <div class="proj-label">Hematology · Object Detection</div>
-      <div class="proj-title">Blood Cell Detection & Quantification</div>
-      <p class="proj-desc">Multi-task deep learning system for hematological analysis. Faster R-CNN and RetinaNet with Feature Pyramid Networks for simultaneous detection, classification, and quantification of WBCs, RBCs, and platelets across microscopy images.</p>
-      <div class="proj-metrics">
-        <div class="proj-metric"><span>0.89 mAP</span> across 5 cell types</div>
-        <div class="proj-metric"><span>73%</span> labeling effort reduced</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <p class="contact-pre">Let's build something worth building.</p>
-  <h2 class="contact-heading">Get In<br><span>Touch</span></h2>
-  <div class="contact-links">
-    <a href="mailto:contact@abhishekadile.com" class="contact-link">Email</a>
-    <a href="https://linkedin.com/in/abhishek-adile-95328613b" class="contact-link" target="_blank">LinkedIn</a>
-    <a href="https://github.com/abhishekadile" class="contact-link" target="_blank">GitHub</a>
-    <a href="#" class="contact-link">Resume</a>
-  </div>
-  <a href="mailto:contact@abhishekadile.com" class="contact-email">contact@abhishekadile.com</a>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <span>© 2025 Abhishek Adile</span>
-  <span>ML Engineer · Founder · Twin Cities, MN</span>
-  <span>Built with intention</span>
-</footer>
-
-<script>
-  // Generate stars
-  const starsEl = document.getElementById('stars');
-  for (let i = 0; i < 120; i++) {
-    const star = document.createElement('div');
-    star.className = 'star';
-    const size = Math.random() < 0.8 ? 1 : Math.random() < 0.5 ? 1.5 : 2;
-    star.style.cssText = `
+    <script>
+        // Generate stars
+        const starsEl = document.getElementById('stars');
+        for (let i = 0; i < 120; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() < 0.8 ? 1 : Math.random() < 0.5 ? 1.5 : 2;
+            star.style.cssText = `
       width: ${size}px; height: ${size}px;
       top: ${Math.random() * 75}%;
       left: ${Math.random() * 100}%;
@@ -933,37 +1248,38 @@
       --delay: ${Math.random() * 5}s;
       --max-opacity: ${0.3 + Math.random() * 0.7};
     `;
-    starsEl.appendChild(star);
-  }
+            starsEl.appendChild(star);
+        }
 
-  // Smooth scroll offset for fixed nav
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        const offset = target.getBoundingClientRect().top + window.scrollY - 70;
-        window.scrollTo({ top: offset, behavior: 'smooth' });
-      }
-    });
-  });
+        // Smooth scroll offset for fixed nav
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    const offset = target.getBoundingClientRect().top + window.scrollY - 70;
+                    window.scrollTo({ top: offset, behavior: 'smooth' });
+                }
+            });
+        });
 
-  // Fade in sections on scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.08 });
+        // Fade in sections on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.08 });
 
-  document.querySelectorAll('.exp-item, .adv-card, .proj-card, .skill-group, .stat-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(16px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    observer.observe(el);
-  });
-</script>
+        document.querySelectorAll('.exp-item, .adv-card, .proj-card, .skill-group, .stat-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(16px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
 </body>
+
 </html>
